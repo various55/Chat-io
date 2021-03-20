@@ -1,0 +1,9 @@
+Timeline: 19/3 -> 20/3
+I. Class Diagram:
+
+II. Sequence Diagram:
+a. Chức năng “Tạo server giao tiếp với các client” - Khánh
+b. Chức năng “Đăng kí, đăng nhập” 		   - Yên
+c. Chức năng “Tạo nhóm chat” 	                   - Tuấn Anh
+d. Chức năng “Gửi tin nhắn trong nhóm”             - Sơn
+e. Chức năng “Phân quyền trong phòng chat”         - Việt Anh
