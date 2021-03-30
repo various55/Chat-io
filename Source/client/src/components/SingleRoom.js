@@ -1,7 +1,10 @@
 import { Component } from "react";
-import io from 'socket.io-client';
 class ChatListItem extends Component{
     
+  joinRoom(nameGroup){
+    console.log(nameGroup);
+  }
+  
     render() {
         return (
             <div className="chat_list">
@@ -11,7 +14,7 @@ class ChatListItem extends Component{
                   <h5>{this.props.nameGroup} <span className="chat_date">Dec 25</span></h5>
                   <p>{this.props.nameGroup}</p>
                 </div>
-              <button onClick={this.props.joinRoom} className="btn btn-danger"></button>
+              <button onClick={this.joinRoom.bind(this)} className="btn btn-danger"></button>
               </div>
             </div>
         );

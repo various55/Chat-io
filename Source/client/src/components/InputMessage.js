@@ -2,10 +2,6 @@ import { Component } from "react";
 
 
 class NewMessage extends Component {
-    constructor(props) {
-        super(props);
-
-    }
     checkEnter(e) {
         if (e.keyCode === 13) {
           this.props.sendMessage(this.messageInput);

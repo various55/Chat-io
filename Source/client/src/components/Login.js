@@ -1,6 +1,4 @@
 import { Component } from "react";
-import {Redirect } from "react-router-dom";
-import ReactSession from 'react-client-session';
 
 class Login extends Component{
     constructor(props){
@@ -22,7 +20,7 @@ class Login extends Component{
             .then(response => response.json())
             .then(data => {
                 if(data.length > 0) {
-                    localStorage.setItem('user',data.Email);
+                    localStorage.setItem('user',data.Name);
                     this.props.history.push({pathname:"/chat",state:{user : data}});
                 }
             });

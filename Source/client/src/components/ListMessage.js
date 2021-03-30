@@ -1,6 +1,6 @@
 import { Component } from "react";
-import MyMessageItem from "./MyMessageItem";
-import PeopleMessageItem from './PeopleMessageItem'
+import MyMessageItem from "./RightMessage";
+import PeopleMessageItem from './LeftMessage'
 class ListMessage extends Component{
 
     render() {
@@ -8,11 +8,11 @@ class ListMessage extends Component{
         return (
             <div className="msg_history">
             {   
-                this.props.messages.map(function(item){
+                this.props.messages.map(function(item,index){
                     if(item.userId === user)
-                        return <MyMessageItem key={item.id} username={item.username} user={item.userId} date={item.date} message={item.message}></MyMessageItem>
+                        return <MyMessageItem key={index} username={item.username} user={item.userId} date={item.date} message={item.message}></MyMessageItem>
                     else 
-                        return <PeopleMessageItem key={item.id} username={item.username} user={item.userId} date={item.date} message={item.message}/>
+                        return <PeopleMessageItem key={index} username={item.username} user={item.userId} date={item.date} message={item.message}/>
                     }
             )}  
             </div>

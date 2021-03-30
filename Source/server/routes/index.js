@@ -15,35 +15,25 @@ app.use(router);
 server.listen(port, () => console.log('Server running in port ' + port));
 
 
+
 io.on('connection', function(socket){
-
-  socket.on('join',idRoom=>{
-    socket.join(idRoom);
-    io.sockets.emit('message', 'join nhóm');
-    console.log(idRoom);  
-    io.to('Hllo').emit('test');
-  })
-
   var username = {};
   socket.emit('id', socket.id);  
   console.log(socket.id + ': connected');
   
-  socket.on('newUser',function(data) {
-    console.log(data);
+  socket.on('join',(user,idRoom)=>{
+    socket.join(idRoom);
+    console.log(user + idRoom);
+    io.in(idRoom).emit('join','Chào mừng '+user+'đã join vào '+idRoom);
   })
 
   socket.on('disconnect', function(){
     console.log(socket.id + ': disconnected')
   })
-
-  socket.on('newUser',function(data) {
-    socket.username = data;
-  })
   
   socket.on('newMessage', data => {
     data.username = socket.username;
     io.sockets.emit('newMessage', {data: data, id: socket.id});
-    console.log(socket.id)
   })
 
 });

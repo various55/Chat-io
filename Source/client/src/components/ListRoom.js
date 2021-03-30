@@ -1,6 +1,5 @@
 import { Component } from "react";
-import ChatListItem from "./ChatListItem";
-import io from 'socket.io-client';
+import ChatListItem from "./SingleRoom";
 
 class ChatList extends Component{
     constructor(props){
@@ -16,7 +15,7 @@ class ChatList extends Component{
         this.loadRoom();
       }
       loadRoom(){
-        var id = localStorage.getItem('user');
+        var id = this.props.user;
         const requestOptions = {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -35,7 +34,7 @@ class ChatList extends Component{
     render() {
         return (
                 <div className="inbox_chat">
-                    {this.state.peoples.map( item => <ChatListItem nameGroup={item.Name} ></ChatListItem>)}
+                    {this.state.peoples.map( (item,index) => <ChatListItem key={index} nameGroup={item.Name} ></ChatListItem>)}
                 </div>
             
         );

@@ -1,16 +1,13 @@
-import React, { useState, useEffect } from "react";
-import InboxPeople from './InboxPeople';
-import Room from './Room';
+import React, { useState } from "react";
+import InboxPeople from './Room';
+import Room from './Chat';
 import ModalNewRoom from './ModalNewRom'
-import { useHistory,useLocation } from 'react-router-dom';
-import io from "socket.io-client";
+import { useLocation } from 'react-router-dom';
 
-let socket;
 const AppChat = () => {
     const location = useLocation();
     let u = location.state.user[0];
     const [user, setUser] = useState(u);
-    localStorage.setItem('user',u.Id);
     
     return (
       <div className="App">
@@ -18,8 +15,8 @@ const AppChat = () => {
           <h3 className=" text-center">Messenger</h3>
           <div className="messaging">
                 <div className="inbox_msg">
-                  <InboxPeople></InboxPeople>
-                  <Room></Room>
+                  <InboxPeople user={u.Id}></InboxPeople>
+                  <Room user={user.Name}></Room>
                 </div>
           </div>
           <ModalNewRoom></ModalNewRoom>
