@@ -1,8 +1,16 @@
-import logo from '../logo.svg';
 import { Component } from 'react';
 import ChatList from './ChatList';
 
 class InboxPeople extends Component {
+  constructor(props){
+      super(props);
+      this.socket = null;
+      this.state = {
+        peoples :[
+          
+        ]
+      }
+    }
   render(){
     return (
         <div className="inbox_people">
@@ -20,7 +28,7 @@ class InboxPeople extends Component {
                         </span> </div>
                     </div>
                   </div>
-                  <ChatList></ChatList>
+                  <ChatList ></ChatList>
                 </div>
                 
       );
