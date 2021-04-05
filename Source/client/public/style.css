@@ -47,14 +47,22 @@ img{ max-width:100%;}
 .chat_ib {
   float: left;
   padding: 0 0 0 15px;
-  width: 88%;
-}
+  width: 88%; 
+} 
 
-.chat_people{ overflow:hidden; clear:both;}
+.chat_people{ overflow:hidden; clear:both;} 
 .chat_list {
+  background-color: white;
   border-bottom: 1px solid #c4c4c4;
   margin: 0;
   padding: 18px 16px 10px;
+}
+.chat_list:hover {
+  background-color:#def4f5;
+  color: white;
+}
+.chat_list:focus {
+  background-color: black;
 }
 .inbox_chat { height: 550px; overflow-y: scroll;}
 
@@ -132,4 +140,22 @@ img{ max-width:100%;}
 .msg_history {
   height: 516px;
   overflow-y: auto;
+}
+.infocus
+{
+    position: absolute;
+    z-index: 1050;
+    background-color: #ffffff;
+    border: 1px solid #999;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+    background-clip: padding-box;
+    outline: none;
 }

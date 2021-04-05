@@ -1,6 +1,6 @@
 import { Component } from "react";
 
-class MyMessageItem extends Component {
+class RightMessage extends Component {
     render() {
         return (
             <div className="outgoing_msg">
@@ -12,4 +12,4 @@ class MyMessageItem extends Component {
         );
     }
 }
-export default MyMessageItem;
+export default RightMessage;

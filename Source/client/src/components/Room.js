@@ -1,16 +1,18 @@
 import { Component } from 'react';
-import ChatList from './ListRoom';
+import ListRoom from './ListRoom';
 
-class InboxPeople extends Component {
+class Room extends Component {
   constructor(props){
       super(props);
-      this.socket = null;
       this.state = {
         peoples :[
           
         ]
       }
     }
+  joinRoom(){
+    this.props.joinRoom();
+  }
   render(){
     return (
         <div className="inbox_people">
@@ -28,11 +30,11 @@ class InboxPeople extends Component {
                         </span> </div>
                     </div>
                   </div>
-                  <ChatList user={this.props.user}></ChatList>
+                  <ListRoom joinRoom={this.joinRoom.bind(this)} user={this.props.user}></ListRoom>
                 </div>
                 
       );
   }
 
 };
-export default InboxPeople;
+export default Room;

@@ -1,6 +1,6 @@
 import { Component } from "react";
 
-class PeopleMessageItem extends Component {
+class LeftMessage extends Component {
     render() {
         return (
         <div className="incoming_msg">
@@ -17,4 +17,4 @@ class PeopleMessageItem extends Component {
         );
     }
 }
-export default PeopleMessageItem;
+export default LeftMessage;

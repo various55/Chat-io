@@ -1,7 +1,7 @@
 import { Component } from "react";
-import ChatListItem from "./SingleRoom";
+import SingleRoom from "./SingleRoom";
 
-class ChatList extends Component{
+class ListRoom extends Component{
     constructor(props){
         super(props);
         this.loadRoom = this.loadRoom.bind(this);
@@ -10,6 +10,9 @@ class ChatList extends Component{
           peoples :[
           ]
         }
+      }
+      joinRoom(nameGroup){
+        this.props.joinRoom()
       }
       componentWillMount() {
         this.loadRoom();
@@ -34,10 +37,10 @@ class ChatList extends Component{
     render() {
         return (
                 <div className="inbox_chat">
-                    {this.state.peoples.map( (item,index) => <ChatListItem key={index} nameGroup={item.Name} ></ChatListItem>)}
+                    {this.state.peoples.map( (item,index) => <SingleRoom key={index} joinRoom={this.joinRoom.bind(this)}  nameGroup={item.Name} ></SingleRoom>)}
                 </div>
             
         );
     }
 }
-export default ChatList;
+export default ListRoom;

@@ -1,7 +1,7 @@
 import { Component } from "react";
 
 
-class NewMessage extends Component {
+class InputMessage extends Component {
     checkEnter(e) {
         if (e.keyCode === 13) {
           this.props.sendMessage(this.messageInput);
@@ -19,4 +19,4 @@ class NewMessage extends Component {
         );
     }
 }
-export default NewMessage;
+export default InputMessage;
