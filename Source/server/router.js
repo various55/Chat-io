@@ -4,6 +4,7 @@ const user = require('./controllers/user.controller')
 const room = require('./controllers/room.controller')
 router.use(express.json()) // for parsing application/json
 router.use(express.urlencoded({ extended: true }));
+var app = express();
 
 router.get('/', (req, res) => {
     res.send('server is up and running')

@@ -29,7 +29,6 @@ module.exports.Delete = async function(req, res) {
 }
 
 module.exports.Login = async function(req, res) {
-    console.log(req.body)
     let user = req.body;
     let email = user.Email;
     let password = user.Password;
