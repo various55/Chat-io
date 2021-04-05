@@ -14,6 +14,7 @@ class Room extends Component {
     this.props.joinRoom();
   }
   render(){
+    console.log('Render Room');
     return (
         <div className="inbox_people">
                   <div className="headind_srch">
