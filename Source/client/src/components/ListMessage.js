@@ -5,7 +5,6 @@ class ListMessage extends Component{
 
     render() {
         var user = this.props.user;
-        console.log('Render  messag e: '+user+' ,,,,, '+this.props.messages.userSend +' messages : '+this.props.messages);
         return (
             <div className="msg_history">
             {   

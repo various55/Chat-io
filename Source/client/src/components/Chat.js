@@ -13,6 +13,7 @@ class Chat extends Component{
 
     render() {
         console.log('Render Chat');
+
         return (
             <div className="mesgs">
             <div>

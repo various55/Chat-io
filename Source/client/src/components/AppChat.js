@@ -15,7 +15,7 @@ const AppChat = () => {
     const [rooms,setRooms] = useState([])
 
     useEffect(()=> {
-      console.log('Đeo reload à');
+      console.log('Render..............')
       socket.on('newMessage', (response) => {
         newMessage(response);
       }); //lắng nghe event 'newMessage' và gọi hàm newMessage khi có event
@@ -25,8 +25,9 @@ const AppChat = () => {
       );
       socket.on('join',mess =>console.log(mess));
       */
-      },[messages]
+      },[]
   )
+      
 
     function testRoom(){
         const data = {
@@ -39,8 +40,6 @@ const AppChat = () => {
         console.log('Join room  ');
     }
     function newMessage(m){
-      const newMessages = [...messages];
-      console.log('Before New Message '+newMessages.length);
       const d = new Date();
       const userData = m.data.user;
       const data = {
@@ -51,20 +50,15 @@ const AppChat = () => {
         date: d.toLocaleString(),
         message: m.data.message
       };
-      newMessages.push(data);
-      console.log('After New message '+newMessages.length);
-      console.log('Before '+messages.length);
-      setMessages(newMessages);
-      console.log('After '+messages.length);
+      messages.push(data);
+      setMessages([...messages]);
     }
     const sendnewMessage = (m) => {
-      console.log('User :'+u);
       if (m.value) {
           const data = {
               message : m.value,
               user : u,
           }
-          console.log('Data  send '+data.message);
           socket.emit("newMessage", data);
            //gửi event về server
           m.value = ""; 
@@ -73,6 +67,7 @@ const AppChat = () => {
 
     function joinRoom(){
       // Thực thi ...
+      
       console.log('Join  room')
     }
     return (
