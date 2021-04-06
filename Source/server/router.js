@@ -14,7 +14,7 @@ router.get('/user/signin', (req, res) => {
   });
 router.post('/user/signin',user.Login);
 router.post('/user/getAll',user.findAll);
-router.post('/room/FindById',room.FindById);
+router.post('/room/FindByUser',room.FindByUser);
 
 
 module.exports = router;
