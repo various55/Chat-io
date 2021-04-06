@@ -24,7 +24,7 @@ class ListRoom extends Component{
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({id})
         };
-        fetch('http://localhost:7000/Room/FindById', requestOptions)
+        fetch('http://localhost:7000/Room/FindByUser', requestOptions)
             .then(response => response.json())
             .then(data => {
                 console.log(data);
@@ -37,7 +37,7 @@ class ListRoom extends Component{
     render() {
         return (
                 <div className="inbox_chat">
-                    {this.state.peoples.map( (item,index) => <SingleRoom key={index} joinRoom={this.joinRoom.bind(this)}  nameGroup={item.Name} ></SingleRoom>)}
+                    {this.state.peoples.map( (item,index) => <SingleRoom key={index} joinRoom={this.joinRoom.bind(this)}  room={item} ></SingleRoom>)}
                 </div>
             
         );

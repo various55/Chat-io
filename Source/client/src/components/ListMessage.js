@@ -9,10 +9,10 @@ class ListMessage extends Component{
             <div className="msg_history">
             {   
                 this.props.messages.map(function(item,index){
-                    if(item.userSend === user)
-                        return <RightMessage key={index} username={item.username} user={item.userId} date={item.date} message={item.message}></RightMessage>
+                    if(item.UserIDCreate === user)
+                        return <RightMessage key={index} username={item.NickName} user={item.userId} date={item.CreateDate} message={item.MessageContent}></RightMessage>
                     else 
-                        return <LeftMessage key={index} username={item.username} user={item.userId} date={item.date} message={item.message}/>
+                        return <LeftMessage key={index} username={item.NickName} user={item.userId} date={item.CreateDate} message={item.MessageContent}/>
                     }
                 )
             }  
