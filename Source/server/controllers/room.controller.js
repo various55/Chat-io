@@ -3,7 +3,7 @@ var db = require('../routes/database');
 // get all user in app
 module.exports.FindByUser = async function (req, res) {
     var id = req.body.id;
-    var result = await db.promise().query('SELECT IDGroup,Name FROM chat_io.members as m Join groupchat as g on g.id = m.idgroup where m.idUser = '+id);
+    var result = await db.promise().query('SELECT IDGroup,Name,LastUpdate FROM chat_io.members as m Join groupchat as g on g.id = m.idgroup where m.idUser = '+id);
     return res.status(200).send(result[0]);
   }
 

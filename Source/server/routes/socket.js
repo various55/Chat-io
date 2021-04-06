@@ -3,10 +3,9 @@ module.exports = (io) => {
         var username = {};
         console.log(socket.id + ': connected');
         
-        socket.on('join',(user,idRoom)=>{
-            socket.join(idRoom);
-            console.log(user + idRoom);
-            io.in(idRoom).emit('join','Chào mừng '+user+'đã join vào '+idRoom);
+        socket.on('join',data=>{
+            socket.join(data.roomId);
+            io.in(data.roomId).emit('join','Chào mừng '+data.user.Username+'đã join vào '+data.roomId);
         })
     
         socket.on('disconnect', function(){
@@ -14,7 +13,8 @@ module.exports = (io) => {
         })
         
         socket.on('newMessage', data => {
-            io.sockets.emit('newMessage', {data: data, userSend: data.user.Username});
+            console.log(data);
+            io.sockets.in(data.room).emit('newMessage', {data: data, userSend: data.user.Username});
         })
     
     });

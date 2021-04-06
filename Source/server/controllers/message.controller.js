@@ -3,7 +3,8 @@ var db = require('../routes/database');
 // get all user in app
 module.exports.FindByRoom = async function (req, res) {
     var id = req.body.id;
-    var result = await db.promise().query('SELECT * FROM chat_io.message where IdChanel = '+id);
+    var result = await db.promise().query('SELECT UserIDCreate,IDChanel,MessageContent,CreateDate,NickName FROM chat_io.message join members'
+    +' on IdChanel=IDGroup where UserIDCreate=IdUser AND IdChanel = '+id+' order by ID');
     return res.status(200).send(result[0]);
   }
 
