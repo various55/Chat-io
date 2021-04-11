@@ -112,7 +112,7 @@ class ModalNewRoom extends Component {
               >
                 Hủy bỏ
               </button>
-              <button onClick={this.newRoom.bind(this)} type="button" className="btn btn-primary">
+              <button onClick={this.newRoom.bind(this)} type="submit" className="btn btn-primary">
                 Tạo nhóm
               </button>
             </div>
