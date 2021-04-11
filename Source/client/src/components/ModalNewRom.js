@@ -13,11 +13,14 @@ class ModalNewRoom extends Component {
     }
   }
   componentWillMount(){
+    const id = localStorage.getItem('userId');
+    console.log(id);
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({id:id})
     };
-    fetch('http://localhost:7000/user/getAll', requestOptions)
+    fetch('http://localhost:7000/user/FindByUser', requestOptions)
         .then(response => response.json())
         .then(data => {
           this.setState({

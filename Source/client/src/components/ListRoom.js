@@ -27,7 +27,6 @@ class ListRoom extends Component{
         fetch('http://localhost:7000/Room/FindByUser', requestOptions)
             .then(response => response.json())
             .then(data => {
-                console.log(data);
                 this.setState({
                   peoples: data,
                 })

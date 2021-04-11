@@ -80,7 +80,7 @@ const AppChat = () => {
       
       <div className="App">
         <div className="container">
-          <h3 className=" text-center">Messenger</h3>
+          <h3 className=" text-center">Username: {u.Username}</h3>
           <div className="messaging">
                 <div className="inbox_msg">
                   <Room joinRoom={()=>joinRoom()} user={u.Id}></Room>

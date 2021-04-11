@@ -5,6 +5,12 @@ module.exports.findAll = async function (req, res) {
     var result = await db.promise().query('SELECT * FROM user');
     return res.status(200).send(result[0]);
   }
+  module.exports.FindByUser = async function (req, res) {
+    const id = req.body.id;
+    console.log(id);
+    var result = await db.promise().query('SELECT * FROM user WHERE ID != ' + id);
+    return res.status(200).send(result[0]);
+  }
 
 // create or update user in app
 module.exports.AddOrUpdate = async function(req, res) {
