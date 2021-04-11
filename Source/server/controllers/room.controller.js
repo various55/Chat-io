@@ -13,6 +13,7 @@ module.exports.CreateRoom = async function(req, res) {
     const name = reqBody.Name;
     const createBy = reqBody.CreateBy;
     const users = reqBody.Users;
+    const username = reqBody.Username;
     const usersAdd = [createBy,...users];
     // Created group
     let sql1 = `Insert into groupchat(IdUserCreate,Name) values(${createBy},N'${name}');`
@@ -25,7 +26,7 @@ module.exports.CreateRoom = async function(req, res) {
     var values = 
         usersAdd.map((item)=>{
             return [
-                item, id,name+'-Username-'+item,createBy
+                item, id,username,createBy
             ]
         })
       ;

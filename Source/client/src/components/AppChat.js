@@ -68,7 +68,7 @@ const AppChat = () => {
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({Name: name.value,CreateBy:u.Id ,Users: users})
+      body: JSON.stringify({Name: name.value,CreateBy:u.Id ,Users: users,Username:u.Name})
     };
     fetch('http://localhost:7000/room/CreateRoom', requestOptions)
         .then(response => response.json())

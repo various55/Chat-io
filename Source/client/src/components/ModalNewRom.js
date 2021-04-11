@@ -14,7 +14,6 @@ class ModalNewRoom extends Component {
   }
   componentWillMount(){
     const id = localStorage.getItem('userId');
-    console.log(id);
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
