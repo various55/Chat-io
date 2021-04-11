@@ -9,17 +9,17 @@ module.exports.FindByRoom = async function (req, res) {
   }
 
 // create or update user in app
-module.exports.AddOrUpdate = async function(req, res) {
-    let user = req.body;
-    let sql = `Update Users set Name = '${user.Name}',Email = '${user.Email}', Avatar = '${user.Avatar}' where Id = '${user.Id}'`;
-    
-    if (user.Id == 0) {
-        sql = `Insert Users(Name,Email,Avatar) value ('${user.Name}','${user.Email}','${user.Avatar}')`;
-    }
-
+module.exports.NewMessage = async function(userId, roomId,message) {
+    let sql = `Insert into message(UserIDCreate,IDChanel,MessageContent) values(${userId},${roomId},N'${message}')`;
     let query = await db.promise().query(sql);
     let check = query[0]["affectedRows"];
-    res.send(check==1?true:false);
+    if(check==1){
+        sql = 'select * from members where IdUser = '+userId+' And IDGroup = '+roomId;
+        return await db.promise().query(sql);
+    }
+    else{
+        return false;
+    }
 }
 
 // create or update user in app

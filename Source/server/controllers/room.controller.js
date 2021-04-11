@@ -8,17 +8,31 @@ module.exports.FindByUser = async function (req, res) {
   }
 
 // create or update user in app
-module.exports.AddOrUpdate = async function(req, res) {
-    let user = req.body;
-    let sql = `Update Users set Name = '${user.Name}',Email = '${user.Email}', Avatar = '${user.Avatar}' where Id = '${user.Id}'`;
-    
-    if (user.Id == 0) {
-        sql = `Insert Users(Name,Email,Avatar) value ('${user.Name}','${user.Email}','${user.Avatar}')`;
-    }
-
-    let query = await db.promise().query(sql);
-    let check = query[0]["affectedRows"];
-    res.send(check==1?true:false);
+module.exports.CreateRoom = async function(req, res) {
+    const reqBody = req.body;
+    const name = reqBody.Name;
+    const createBy = reqBody.CreateBy;
+    const users = reqBody.Users;
+    const usersAdd = [createBy,...users];
+    // Created group
+    let sql1 = `Insert into groupchat(IdUserCreate,Name) values(${createBy},N'${name}');`
+    await db.promise().query(sql1);
+    // Get Id room
+    let sql2 = `SELECT LAST_INSERT_ID();`;
+    let query =  await db.promise().query(sql2);
+    let id = query[0][0]["LAST_INSERT_ID()"];
+    // Add Member
+    var values = 
+        usersAdd.map((item)=>{
+            return [
+                item, id,name+'-Username-'+item,createBy
+            ]
+        })
+      ;
+    console.log(values)
+    let sql3 = 'INSERT into members(IdUser,IDGroup,NickName,IdModAdd) VALUES ?';
+    var check = await db.promise().query(sql3,[values]);
+    res.send(check==0?false:true);
 }
 
 // create or update user in app

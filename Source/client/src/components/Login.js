@@ -19,8 +19,9 @@ class Login extends Component{
         fetch('http://localhost:7000/user/signin', requestOptions)
             .then(response => response.json())
             .then(data => {
+                console.log('Data');
+                console.log(data);
                 if(data.length > 0) {
-                    localStorage.setItem('user',data.Name);
                     this.props.history.push({pathname:"/chat",state:{user : data}});
                 }
             });

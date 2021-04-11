@@ -1,3 +1,6 @@
+const Message = require('../controllers/message.controller')
+
+
 module.exports = (io) => {   
     io.on('connection', function(socket){
         var username = {};
@@ -13,8 +16,10 @@ module.exports = (io) => {
         })
         
         socket.on('newMessage', data => {
-            console.log(data);
-            io.sockets.in(data.room).emit('newMessage', {data: data, userSend: data.user.Username});
+            Message.NewMessage(data.user.Id,data.room,data.message).then(res =>{
+                data.user.Name = res[0][0]["NickName"];
+                io.sockets.in(data.room).emit('newMessage', {user: data,message:data.message, userSend: data.user.Username});
+            })
         })
     
     });

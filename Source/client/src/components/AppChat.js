@@ -13,38 +13,28 @@ const AppChat = () => {
   const [users,setUsers] = useState([])
   const [messages,setMessages] = useState([])
   const [rooms,setRooms] = useState([])
+  const [room,setRoom] = useState()
     useEffect(()=> {
-      console.log('Render'+messages.length);
       socket.on('newMessage', (response) => {
         newMessage(response);
       }); //lắng nghe event 'newMessage' và gọi hàm newMessage khi có event
-      /*
-      socket.on('test',mess => {
-              console.log(mess)}
-      );
-      */
-      socket.on('join',mess =>console.log(mess));
-        
       },[]
   )
     function newMessage(m){
       const d = new Date();
-      const userData = m.data.user;
+      const userData = m.user.user;
       const data = {
         CreateDate:d.toLocaleString(),
-        IDChanel:'1',
-        MessageContent:m.data.message,
+        MessageContent:m.message,
         NickName:userData.Name,
         UserIDCreate: userData.Id
       };
-      console.log('Length trước khi send '+messages.length);
-      messages.push(data);
-      setMessages([...messages]);
+      setMessages(messages =>[...messages,data]);
     }
     const sendnewMessage = (m) => {
-      console.log('Lenth gửi '+messages.length);
       if (m.value) {
           const roomId = localStorage.getItem('room');
+          const d = new Date();
           const data = {
               message : m.value,
               user : u,
@@ -67,14 +57,24 @@ const AppChat = () => {
         .then(response => response.json())
         .then(data => {
           setMessages(data);
-          console.log('Test'+messages.length);
         });
     const data ={
       user : u,
       roomId:id
     }
-    console.log('Join length:'+messages.length);
     socket.emit('join',data);
+  }
+  function newRoom(name,users) {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({Name: name.value,CreateBy:u.Id ,Users: users})
+    };
+    fetch('http://localhost:7000/room/CreateRoom', requestOptions)
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+        });
   }
     return (
       
@@ -87,7 +87,7 @@ const AppChat = () => {
                   <Chat sendMessage={sendnewMessage} messages={messages} userSend={user.Id}></Chat>
                 </div>
           </div>
-          <ModalNewRoom></ModalNewRoom>
+          <ModalNewRoom newRoom={newRoom} ></ModalNewRoom>
         </div>
       </div>
     );
