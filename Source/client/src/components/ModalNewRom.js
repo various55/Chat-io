@@ -8,8 +8,8 @@ class ModalNewRoom extends Component {
         
       ],
       usersAdd: [
-
-      ]
+        
+      ],
     }
   }
   componentWillMount(){
@@ -28,20 +28,28 @@ class ModalNewRoom extends Component {
         });
   }
   newRoom(){
-    this.props.newRoom(this.roomName,this.state.usersAdd);
+    if(this.roomName.value === ''){
+      alert('Tên phòng k được để trống')
+    }else if(this.state.usersAdd.length<1){
+      alert('Phòng cần có ít nhất 2 người');
+    }else
+      this.props.newRoom(this.roomName,this.state.usersAdd);
   }
   onChange(e) {
     // current array of options
     const usersAdd = this.state.usersAdd
     let index
-
     // check if the check box is checked or unchecked
     if (e.target.checked) {
+      const data = {
+        id :e.target.value,
+        name :e.target.name
+      }
       // add the numerical value of the checkbox to options array
-      usersAdd.push(+e.target.value)
+      usersAdd.push(data)
     } else {
       // or remove the value from the unchecked checkbox from the array
-      index = usersAdd.indexOf(+e.target.value)
+      index = usersAdd.indexOf(e.target.value,e.target.name)
       usersAdd.splice(index, 1)
     }
     // update the state with the new array of options
@@ -92,7 +100,7 @@ class ModalNewRoom extends Component {
                     this.state.users.map((item,index) =>{
                       return(
                         <tr key={index}>
-                          <td><input value={item.Id} onChange={this.onChange.bind(this)} type="checkbox" name="seleted"/></td>
+                          <td><input ref={(username)=>{this.username=item.Name}} value={item.Id} name={item.Name} onChange={this.onChange.bind(this)} type="checkbox"/></td>
                           <th scope="row">{index+1}</th>
                           <td>{item.Email}</td>
                           <td>{item.Username}</td>
@@ -112,7 +120,7 @@ class ModalNewRoom extends Component {
               >
                 Hủy bỏ
               </button>
-              <button onClick={this.newRoom.bind(this)} type="submit" className="btn btn-primary">
+              <button id="btnSave" onClick={this.newRoom.bind(this)} type="submit" className="btn btn-primary">
                 Tạo nhóm
               </button>
             </div>

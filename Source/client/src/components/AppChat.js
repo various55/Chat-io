@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect, useRef } from "react";
 import Room from './Room';
 import Chat from './Chat';
 import io from 'socket.io-client';
@@ -8,12 +8,17 @@ import { useLocation } from 'react-router-dom';
 let socket = io('localhost:7000');
 const AppChat = () => {
   const location = useLocation();
+  
+      if(location.state == undefined){
+        window.location.href='http://localhost:3000'
+      }
   let u = location.state.user[0];
   const [user, setUser] = useState(u);
   const [users,setUsers] = useState([])
   const [messages,setMessages] = useState([])
   const [rooms,setRooms] = useState([])
   const [room,setRoom] = useState()
+
     useEffect(()=> {
       socket.on('newMessage', (response) => {
         newMessage(response);
@@ -22,27 +27,15 @@ const AppChat = () => {
   )
     function newMessage(m){
       const d = new Date();
-<<<<<<< HEAD
-      const userData = m.user;
-      const data = {
-        CreateDate:d.toLocaleString(),
-        IDChanel:'1',
-        MessageContent:m.message,
-        NickName:"Yen",
-        UserIDCreate: userData.Id
-      };
-      console.log('Length trước khi send '+messages.length);
-      setMessages([...messages,data]);
-=======
       const userData = m.user.user;
       const data = {
-        CreateDate:d.toLocaleString(),
+        CreateDate:d,
         MessageContent:m.message,
         NickName:userData.Name,
         UserIDCreate: userData.Id
       };
+      console.log(data);
       setMessages(messages =>[...messages,data]);
->>>>>>> b4af52fe83ab3dca331c7f141f7cb6c88fc6f333
     }
     const sendnewMessage = (m) => {
       if (m.value) {
@@ -79,6 +72,7 @@ const AppChat = () => {
     }
     socket.emit('join',data);
   }
+  const child = useRef();
   function newRoom(name,users) {
     const requestOptions = {
       method: 'POST',
@@ -88,7 +82,7 @@ const AppChat = () => {
     fetch('http://localhost:7000/room/CreateRoom', requestOptions)
         .then(response => response.json())
         .then(data => {
-          console.log(data);
+          child.current.method();
         });
   }
     return (
@@ -98,7 +92,7 @@ const AppChat = () => {
           <h3 className=" text-center">Username: {u.Username}</h3>
           <div className="messaging">
                 <div className="inbox_msg">
-                  <Room joinRoom={()=>joinRoom()} user={u.Id}></Room>
+                  <Room ref={child} joinRoom={()=>joinRoom()} user={u.Id} rooms={rooms}></Room>
                   <Chat sendMessage={sendnewMessage} messages={messages} userSend={user.Id}></Chat>
                 </div>
           </div>

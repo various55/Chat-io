@@ -2,16 +2,12 @@ import { Component } from 'react';
 import ListRoom from './ListRoom';
 
 class Room extends Component {
-  constructor(props){
-      super(props);
-      this.state = {
-        peoples :[
-          
-        ]
-      }
-    }
   joinRoom(){
     this.props.joinRoom();
+  }
+  
+  method(){
+    this.child.loadRoom();
   }
   render(){
     console.log('Render Room');
@@ -31,7 +27,7 @@ class Room extends Component {
                         </span> </div>
                     </div>
                   </div>
-                  <ListRoom joinRoom={this.joinRoom.bind(this)} user={this.props.user}></ListRoom>
+                  <ListRoom onRef={ref => this.child = ref} joinRoom={this.joinRoom.bind(this)} user={this.props.user}></ListRoom>
                 </div>
                 
       );

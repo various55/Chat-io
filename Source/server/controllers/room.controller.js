@@ -14,26 +14,28 @@ module.exports.CreateRoom = async function(req, res) {
     const createBy = reqBody.CreateBy;
     const users = reqBody.Users;
     const username = reqBody.Username;
-    const usersAdd = [createBy,...users];
-    // Created group
-    let sql1 = `Insert into groupchat(IdUserCreate,Name) values(${createBy},N'${name}');`
-    await db.promise().query(sql1);
+    const usersAdd = [{id:createBy,name:username},...users];
+    //Created group
+    let sql = `Insert into groupchat(IdUserCreate,Name) values(${createBy},N'${name}');`
+    await db.promise().query(sql);
     // Get Id room
-    let sql2 = `SELECT LAST_INSERT_ID();`;
-    let query =  await db.promise().query(sql2);
+    sql = `SELECT LAST_INSERT_ID();`;
+    let query =  await db.promise().query(sql);
     let id = query[0][0]["LAST_INSERT_ID()"];
     // Add Member
     var values = 
         usersAdd.map((item)=>{
             return [
-                item, id,username,createBy
+                item.id, id,item.name,createBy
             ]
         })
       ;
     console.log(values)
-    let sql3 = 'INSERT into members(IdUser,IDGroup,NickName,IdModAdd) VALUES ?';
-    var check = await db.promise().query(sql3,[values]);
-    res.send(check==0?false:true);
+    sql = 'INSERT into members(IdUser,IDGroup,NickName,IdModAdd) VALUES ?';
+    var check = await db.promise().query(sql,[values]);
+    sql = 'SELECT IDGroup,Name,LastUpdate FROM chat_io.members as m Join groupchat as g on g.id = m.idgroup where m.idUser = '+createBy;
+    var result = await db.promise().query(sql);
+    return res.status(200).send(result[0]);
 }
 
 // create or update user in app

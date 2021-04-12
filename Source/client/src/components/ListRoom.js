@@ -5,7 +5,6 @@ class ListRoom extends Component{
     constructor(props){
         super(props);
         this.loadRoom = this.loadRoom.bind(this);
-        this.socket = null;
         this.state = {
           peoples :[
           ]
@@ -15,6 +14,7 @@ class ListRoom extends Component{
         this.props.joinRoom()
       }
       componentWillMount() {
+        this.props.onRef(this);
         this.loadRoom();
       }
       loadRoom(){
