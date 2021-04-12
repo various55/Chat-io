@@ -7,9 +7,9 @@ Bài tập lớn CNPM
 ## Source
 /Source
 ### Cách cài đặt :
-#/client -> npm install
-#/server -> npm install
-#/database -> create database mysql -> config database server/env.js
+# /client -> npm install
+# /server -> npm install
+# /database -> create database mysql -> config database server/env.js
 
 # /client npm start
 # /server npm start
