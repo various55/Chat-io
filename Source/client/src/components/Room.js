@@ -20,7 +20,7 @@ class Room extends Component {
                   <div className="headind_srch">
                     <div className="recent_heading ">
                       <button type="button" className="btn btn-primary border-0" data-toggle="modal" data-target="#createRoom">
-                       new room
+                       Tạo nhóm
                       </button>
                     </div>
                     <div className="srch_bar">

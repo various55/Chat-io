@@ -16,7 +16,10 @@ router.get('/user/signin', (req, res) => {
   });
 router.post('/user/signin',user.Login);
 router.post('/user/getAll',user.findAll);
+router.post('/user/FindByUser',user.FindByUser);
 router.post('/room/FindByUser',room.FindByUser);
 router.post('/message/FindByRoom',message.FindByRoom);
+router.post('/room/createRoom',room.CreateRoom);
+
 
 module.exports = router;

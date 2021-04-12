@@ -10,7 +10,6 @@ class Login extends Component{
         this.componentDidMount = this.componentDidMount.bind(this);
     }
     componentDidMount(){
-        
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -20,7 +19,7 @@ class Login extends Component{
             .then(response => response.json())
             .then(data => {
                 if(data.length > 0) {
-                    localStorage.setItem('user',data.Name);
+                    localStorage.setItem("userId", data[0]['Id']);
                     this.props.history.push({pathname:"/chat",state:{user : data}});
                 }
             });

@@ -13,22 +13,16 @@ const AppChat = () => {
   const [users,setUsers] = useState([])
   const [messages,setMessages] = useState([])
   const [rooms,setRooms] = useState([])
+  const [room,setRoom] = useState()
     useEffect(()=> {
-      console.log('Render'+messages.length);
       socket.on('newMessage', (response) => {
         newMessage(response);
       }); //lắng nghe event 'newMessage' và gọi hàm newMessage khi có event
-      /*
-      socket.on('test',mess => {
-              console.log(mess)}
-      );
-      */
-      socket.on('join',mess =>console.log(mess));
-        
       },[]
   )
     function newMessage(m){
       const d = new Date();
+<<<<<<< HEAD
       const userData = m.user;
       const data = {
         CreateDate:d.toLocaleString(),
@@ -39,11 +33,21 @@ const AppChat = () => {
       };
       console.log('Length trước khi send '+messages.length);
       setMessages([...messages,data]);
+=======
+      const userData = m.user.user;
+      const data = {
+        CreateDate:d.toLocaleString(),
+        MessageContent:m.message,
+        NickName:userData.Name,
+        UserIDCreate: userData.Id
+      };
+      setMessages(messages =>[...messages,data]);
+>>>>>>> b4af52fe83ab3dca331c7f141f7cb6c88fc6f333
     }
     const sendnewMessage = (m) => {
-      console.log('Lenth gửi '+messages.length);
       if (m.value) {
           const roomId = localStorage.getItem('room');
+          const d = new Date();
           const data = {
               message : m.value,
               user : u,
@@ -68,27 +72,37 @@ const AppChat = () => {
         .then(response => response.json())
         .then(data => {
           setMessages(data);
-          console.log('Test'+messages.length);
         });
     const data ={
       user : u,
       roomId:id
     }
-    console.log('Join length:'+messages.length);
     socket.emit('join',data);
+  }
+  function newRoom(name,users) {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({Name: name.value,CreateBy:u.Id ,Users: users,Username:u.Name})
+    };
+    fetch('http://localhost:7000/room/CreateRoom', requestOptions)
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+        });
   }
     return (
       
       <div className="App">
         <div className="container">
-          <h3 className=" text-center">Messenger</h3>
+          <h3 className=" text-center">Username: {u.Username}</h3>
           <div className="messaging">
                 <div className="inbox_msg">
                   <Room joinRoom={()=>joinRoom()} user={u.Id}></Room>
                   <Chat sendMessage={sendnewMessage} messages={messages} userSend={user.Id}></Chat>
                 </div>
           </div>
-          <ModalNewRoom></ModalNewRoom>
+          <ModalNewRoom newRoom={newRoom} ></ModalNewRoom>
         </div>
       </div>
     );
