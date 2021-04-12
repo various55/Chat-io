@@ -12,9 +12,10 @@ module.exports = (io) => {
             console.log(socket.id + ': disconnected')
         })
         
-        socket.on('newMessage', data => {
+        socket.on('newMessage', (data ,cb) => {
             console.log(data);
             io.sockets.in(data.room).emit('newMessage', {data: data, userSend: data.user.Username});
+            cb(data);
         })
     
     });

@@ -29,17 +29,16 @@ const AppChat = () => {
   )
     function newMessage(m){
       const d = new Date();
-      const userData = m.data.user;
+      const userData = m.user;
       const data = {
         CreateDate:d.toLocaleString(),
         IDChanel:'1',
-        MessageContent:m.data.message,
-        NickName:userData.Name,
+        MessageContent:m.message,
+        NickName:"Yen",
         UserIDCreate: userData.Id
       };
       console.log('Length trước khi send '+messages.length);
-      messages.push(data);
-      setMessages([...messages]);
+      setMessages([...messages,data]);
     }
     const sendnewMessage = (m) => {
       console.log('Lenth gửi '+messages.length);
@@ -50,7 +49,9 @@ const AppChat = () => {
               user : u,
               room :roomId
           }
-          socket.emit("newMessage", data);
+          socket.emit("newMessage", data, (x) => {
+            newMessage(x);
+          });
            //gửi event về server
           m.value = ""; 
       } 
